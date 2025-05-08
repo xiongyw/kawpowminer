@@ -41,8 +41,6 @@ else()
 		list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_30,code=sm_30")
 		list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_32,code=sm_32")
 	endif()
-	list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_35,code=sm_35")
-	list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_37,code=sm_37")
 	list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_50,code=sm_50")
 	list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_52,code=sm_52")
 	list(APPEND CUDA_NVCC_FLAGS "-gencode arch=compute_53,code=sm_53")
@@ -70,6 +68,9 @@ add_dependencies(ethash-cuda cuda_kernel)
 # Cmake doesn't handle nvrtc automatically
 find_library(CUDA_nvrtc_LIBRARY NAMES nvrtc PATHS ${CUDA_TOOLKIT_ROOT_DIR} PATH_SUFFIXES lib64 lib/x64 lib64/stubs lib/x64/stubs lib NO_DEFAULT_PATH)
 find_library(CUDA_cuda_LIBRARY NAMES cuda PATHS ${CUDA_TOOLKIT_ROOT_DIR} PATH_SUFFIXES lib64 lib/x64 lib64/stubs lib/x64/stubs lib NO_DEFAULT_PATH)
+
+target_compile_definitions(ethash-cuda PRIVATE PTHREAD_STACK_MIN=16384)
+
 target_link_libraries(ethash-cuda ethcore ethash::ethash progpow Boost::thread)
 target_link_libraries(ethash-cuda ${CUDA_nvrtc_LIBRARY} ${CUDA_cuda_LIBRARY})
 target_include_directories(ethash-cuda PUBLIC ${CUDA_INCLUDE_DIRS})

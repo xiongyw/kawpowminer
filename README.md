@@ -79,6 +79,7 @@ cmake .. -DETHASHCUDA=ON -DETHASHCL=ON -DAPICORE=ON
 make -sj $(nproc)
 ```
 
+Using CPU for mining: `cmake .. -DETHASHCUDA=OFF -DETHASHCL=OFF -DAPICORE=OFF -DETHASHCPU=ON`
 
 ### Windows
 

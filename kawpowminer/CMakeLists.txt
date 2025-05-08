@@ -16,7 +16,9 @@ endif()
 hunter_add_package(CLI11)
 find_package(CLI11 CONFIG REQUIRED)
 
-target_link_libraries(kawpowminer PRIVATE ethcore poolprotocols devcore kawpowminer-buildinfo CLI11::CLI11 Boost::filesystem Boost::system)
+target_compile_definitions(kawpowminer PRIVATE PTHREAD_STACK_MIN=16384)
+
+target_link_libraries(kawpowminer PRIVATE ethcore poolprotocols devcore kawpowminer-buildinfo CLI11::CLI11 Boost::filesystem Boost::system Boost::thread)
 
 if(ETHDBUS)
 	find_package(PkgConfig)

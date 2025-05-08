@@ -7,6 +7,8 @@ set(SOURCES
 include_directories(BEFORE ..)
 
 add_library(ethcore ${SOURCES})
+target_compile_definitions(ethcore PRIVATE PTHREAD_STACK_MIN=16384)
+
 target_link_libraries(ethcore PUBLIC devcore ethash::ethash PRIVATE hwmon)
 
 if(ETHASHCL)

@@ -106,7 +106,6 @@ endif()
 
 add_subdirectory(kawpowminer)
 
-
 if(WIN32)
 	set(CPACK_GENERATOR ZIP)
 else()
